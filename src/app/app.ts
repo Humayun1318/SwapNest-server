@@ -15,8 +15,6 @@ app.get('/', (req, res) => {
   res.send('Welcome to the SecondHand Marketplace API!');
 });
 
-app.listen(5000, () => {
-  console.log(`🚀 Server is running on http://localhost:5000`);
-})
+
 
 export default app;
