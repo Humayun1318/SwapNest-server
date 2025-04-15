@@ -29,11 +29,11 @@
 
 ---
 
-## 🛠️ Tech Stack 
-- **Backend:** Express.js, MongoDB, JWT, bcrypt   
-- **Architecture:** Modular backend structure with RESTful API design  
+## 🛠️ Tech Stack
+
+- **Backend:** Express.js, MongoDB, JWT, bcrypt
+- **Architecture:** Modular backend structure with RESTful API design
 
 ---
 
 SwapNest is built with clean code principles, modular architecture, and scalable components to provide a modern, community-driven e-commerce experience focused on sustainability.
-
