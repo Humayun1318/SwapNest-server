@@ -24,7 +24,6 @@ const auth = (...requiredRoles: string[]) => {
         }
 
         const payload = decoded as JwtPayload;
-
         // Ensure the payload has userId (regardless of email or phone login)
         if (!payload.userId || !payload.role) {
           throw new AppError(status.UNAUTHORIZED, "Invalid token payload");
