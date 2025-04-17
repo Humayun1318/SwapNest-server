@@ -68,9 +68,7 @@ const userBlockByAdminIntoDB = async (id: string) => {
     },
   );
 
-  const message = updatedIsBlocked
-    ? "User is Ban successfully"
-    : "User is Unban successfully";
+  const message = updatedIsBlocked ? "User is Ban successfully" : "User is Unban successfully";
 
   return { result, message };
 };

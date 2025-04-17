@@ -55,10 +55,7 @@ userSchema.pre("save", function (next) {
 userSchema.pre("save", async function (next) {
   const user = this; // doc
   // hashing password and save into DB
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
+  user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds));
   next();
 });
 
@@ -75,10 +72,7 @@ userSchema.statics.isUserExistsByCustomId = async function (id: string) {
   return await User.findOne({ _id: id }).select("+password");
 };
 
-userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword,
-) {
+userSchema.statics.isPasswordMatched = async function (plainTextPassword, hashedPassword) {
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 

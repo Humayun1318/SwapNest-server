@@ -44,10 +44,7 @@ const userLoginIntoDB = async (payload: TLoginUser) => {
   }
 
   if (user?.isBlocked) {
-    throw new AppError(
-      status.FORBIDDEN,
-      "Access denied. Your account has been Deactivate.",
-    );
+    throw new AppError(status.FORBIDDEN, "Access denied. Your account has been Deactivate.");
   }
 
   if (!(await User.isPasswordMatched(password, user?.password)))
@@ -71,20 +68,14 @@ const userLoginIntoDB = async (payload: TLoginUser) => {
 };
 
 const refreshToken = async (token: string) => {
-  const decoded = jwt.verify(
-    token,
-    config.jwt_refresh_secret as string,
-  ) as JwtPayload;
+  const decoded = jwt.verify(token, config.jwt_refresh_secret as string) as JwtPayload;
   const { userId } = decoded;
   const user = await User.isUserExistsByCustomId(userId);
   if (!user) {
     throw new AppError(status.NOT_FOUND, "This user is not found!");
   }
   if (user?.isBlocked) {
-    throw new AppError(
-      status.FORBIDDEN,
-      "Access denied. Your account has been Deactivate.",
-    );
+    throw new AppError(status.FORBIDDEN, "Access denied. Your account has been Deactivate.");
   }
 
   const jwtPayload = {
