@@ -27,10 +27,10 @@ export const listingSchemaValidation = z
         required_error: "Category is required",
         invalid_type_error: "Invalid category selected",
       }),
-      customCategory: z
-        .string()
-        .max(20, "Custom category must be less than 100 characters")
-        .optional(),
+      // customCategory: z
+      //   .string()
+      //   .max(20, "Custom category must be less than 100 characters")
+      //   .optional(),
       location: z.nativeEnum(ListingLocation, {
         required_error: "Location is required",
         invalid_type_error: "Invalid location selected",
@@ -42,19 +42,19 @@ export const listingSchemaValidation = z
       isDeleted: z.boolean().default(false).optional(),
     }),
   })
+  // .refine(
+  //   (data) => {
+  //     // If category is "other", customCategory must be truthy (non-empty)
+  //     return data.body.category !== "other" || !!data.body.customCategory;
+  //   },
+  //   {
+  //     message: "Custom category is required when 'Other' is selected",
+  //     path: ["body", "customCategory"],
+  //   },
+  // )
   .refine(
     (data) => {
-      // If category is "other", customCategory must be truthy (non-empty)
-      return data.body.category !== "other" || !!data.body.customCategory;
-    },
-    {
-      message: "Custom category is required when 'Other' is selected",
-      path: ["body", "customCategory"],
-    },
-  )
-  .refine(
-    (data) => {
-      return data.body.location !== "other" || !!data.body.customLocation;
+      return data.body.location !== "Other" || !!data.body.customLocation;
     },
     {
       message: "Custom location is required when 'Other' is selected",
@@ -79,7 +79,6 @@ export const updateListingSchemaValidation = z
         })
         .optional()
         .default(ListingStatus.AVAILABLE),
-
       category: z
         .nativeEnum(ListingCategory, {
           required_error: "Category is required",
@@ -103,19 +102,19 @@ export const updateListingSchemaValidation = z
       isDeleted: z.boolean().default(false).optional(),
     }),
   })
+  // .refine(
+  //   (data) => {
+  //     // If category is "other", customCategory must be truthy (non-empty)
+  //     return !data.body.category || data.body.category !== "other" || !!data.body.customCategory;
+  //   },
+  //   {
+  //     message: "Custom category is required when 'Other' is selected",
+  //     path: ["body", "customCategory"],
+  //   },
+  // )
   .refine(
     (data) => {
-      // If category is "other", customCategory must be truthy (non-empty)
-      return !data.body.category || data.body.category !== "other" || !!data.body.customCategory;
-    },
-    {
-      message: "Custom category is required when 'Other' is selected",
-      path: ["body", "customCategory"],
-    },
-  )
-  .refine(
-    (data) => {
-      return !data.body.location || data.body.location !== "other" || !!data.body.customLocation;
+      return !data.body.location || data.body.location !== "Other" || !!data.body.customLocation;
     },
     {
       message: "Custom location is required when 'Other' is selected",

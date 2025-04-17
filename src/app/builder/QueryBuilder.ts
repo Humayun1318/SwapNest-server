@@ -1,4 +1,10 @@
-import { FilterQuery, Query } from "mongoose";
+import { FilterQuery, Query, Types } from "mongoose";
+import {
+  ListingCategory,
+  ListingCondition,
+  ListingLocation,
+  ListingStatus,
+} from "../modules/listing/listing.interface";
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
@@ -25,16 +31,58 @@ class QueryBuilder<T> {
     return this;
   }
 
-  filter() {
-    const queryObj = { ...this.query }; // copy
-
-    // Filtering
-    const excludeFields = ["searchTerm", "sort", "limit", "page", "fields"];
-
+  filter(): this {
+    const queryObj = { ...this.query };
+    const excludeFields = ["searchTerm", "sort", "limit", "page", "fields", "minPrice", "maxPrice"];
     excludeFields.forEach((el) => delete queryObj[el]);
 
-    this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>);
+    const filters: FilterQuery<T> = {
+      isDeleted: false,
+    } as FilterQuery<T>;
 
+    // Price range filtering
+    const priceFilter: Record<string, number> = {};
+    if (this.query.minPrice) {
+      priceFilter["$gte"] = Number(this.query.minPrice);
+    }
+    if (this.query.maxPrice) {
+      priceFilter["$lte"] = Number(this.query.maxPrice);
+    }
+    if (Object.keys(priceFilter).length > 0) {
+      (filters as Record<string, unknown>).price = priceFilter;
+    }
+
+    // Existing category/location/condition filters
+    if (
+      queryObj.category &&
+      Object.values(ListingCategory).includes(queryObj.category as ListingCategory)
+    ) {
+      (filters as Record<string, unknown>).category = queryObj.category as ListingCategory;
+    }
+
+    if (queryObj.location) {
+      if (queryObj.location === ListingLocation.OTHER) {
+        (filters as Record<string, unknown>).customLocation = { $exists: true, $ne: "" };
+      } else if (Object.values(ListingLocation).includes(queryObj.location as ListingLocation)) {
+        (filters as Record<string, unknown>).location = queryObj.location as ListingLocation;
+      }
+    }
+
+    if (
+      queryObj.condition &&
+      Object.values(ListingCondition).includes(queryObj.condition as ListingCondition)
+    ) {
+      (filters as Record<string, unknown>).condition = queryObj.condition as ListingCondition;
+    }
+    // Make status filter OPTIONAL
+    if (
+      queryObj.status &&
+      Object.values(ListingStatus).includes(queryObj.status as ListingStatus)
+    ) {
+      (filters as Record<string, unknown>).status = queryObj.status as ListingStatus;
+    }
+
+    this.modelQuery = this.modelQuery.find(filters);
     return this;
   }
 

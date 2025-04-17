@@ -15,20 +15,44 @@ export enum ListingStatus {
 }
 
 export enum ListingCategory {
-  ELECTRONICS = "electronics",
-  FURNITURE = "furniture",
-  CLOTHING = "clothing",
-  BOOKS = "books",
-  OTHER = "other",
+  Electronics = "electronics",
+  Mobile = "mobile",
+  Computers = "computers",
+  Appliances = "appliances",
+  Furniture = "furniture",
+  Clothing = "clothing",
+  Footwear = "footwear",
+  Accessories = "accessories",
+  Vehicles = "vehicles",
+  Books = "books",
+  Sports = "sports",
+  Toys = "toys",
+  Health = "health",
+  Beauty = "beauty",
+  Jewelry = "jewelry",
+  Tools = "tools",
+  Gardening = "gardening",
+  MusicalInstruments = "musicalinstruments",
+  OfficeSupplies = "officesupplies",
+  PetSupplies = "petsupplies",
+  BabyProducts = "babyproducts",
+  ArtCollectibles = "artcollectibles",
+  Gaming = "gaming",
+  Cameras = "cameras",
+  RealEstate = "realestate",
+  Other = "other",
 }
 
 export enum ListingLocation {
-  DHAKA = "dhaka",
-  CHITTAGONG = "chittagong",
-  SYLHET = "sylhet",
-  RAJSHAHI = "rajshahi",
-  KHULNA = "khulna",
-  OTHER = "other",
+  DHAKA = "Dhaka",
+  CHATTOGRAM = "Chattogram",
+  RAJSHAHI = "Rajshahi",
+  KHULNA = "Khulna",
+  BARISAL = "Barisal",
+  SYLHET = "Sylhet",
+  RANGPUR = "Rangpur",
+  MYMENSINGH = "Mymensingh",
+  OTHER = "Other",
 }
 
 // ==================== LISTING TYPES ====================
@@ -42,14 +66,16 @@ export interface IListing extends Document {
   status?: ListingStatus;
   isDeleted?: boolean;
   category: ListingCategory;
-  customCategory?: string;
   location: ListingLocation;
   customLocation?: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export type TListingCreate = Omit<IListing, "createdAt" | "updatedAt" | "status" | "userID">;
+export type TListingCreate = Omit<
+  IListing,
+  "createdAt" | "updatedAt" | "status" | "userID" | "isDeleted"
+>;
 export type TListingUpdate = Partial<
   Omit<IListing, "userID" | "createdAt" | "updatedAt" | "isDeleted">
 >;

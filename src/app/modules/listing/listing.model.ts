@@ -52,7 +52,7 @@ const listingSchema = new Schema<IListing>(
       enum: Object.values(ListingCategory),
       required: [true, "Category is required"],
     },
-    customCategory: { type: String },
+    // customCategory: { type: String },
     location: {
       type: String,
       enum: Object.values(ListingLocation),
