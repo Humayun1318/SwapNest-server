@@ -1,5 +1,11 @@
 import { model, Schema } from "mongoose";
-import { IListing, ListingCondition, ListingStatus } from "./listing.interface";
+import {
+  IListing,
+  ListingCategory,
+  ListingCondition,
+  ListingLocation,
+  ListingStatus,
+} from "./listing.interface";
 
 const listingSchema = new Schema<IListing>(
   {
@@ -29,7 +35,8 @@ const listingSchema = new Schema<IListing>(
       required: [true, "At least one image is required"],
     },
     userID: {
-      type: String, // Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: [true, "User ID is required"],
     },
     status: {
@@ -40,6 +47,18 @@ const listingSchema = new Schema<IListing>(
       },
       default: ListingStatus.AVAILABLE,
     },
+    category: {
+      type: String,
+      enum: Object.values(ListingCategory),
+      required: [true, "Category is required"],
+    },
+    customCategory: { type: String },
+    location: {
+      type: String,
+      enum: Object.values(ListingLocation),
+      required: [true, "Location is required"],
+    },
+    customLocation: { type: String },
     isDeleted: { type: Boolean, default: false },
   },
   { timestamps: true },
