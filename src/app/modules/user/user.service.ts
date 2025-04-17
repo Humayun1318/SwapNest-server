@@ -42,12 +42,8 @@ const updateUserIntoDB = async (id: string, data: Partial<TUser>) => {
 
 const deleteUserIntoDB = async (id: string) => {
   const isUserExits = await User.findById(id);
-
   if (!isUserExits) {
     throw new AppError(status.NOT_FOUND, "User is not Found");
-  }
-  if (isUserExits.isBlocked) {
-    throw new AppError(status.FORBIDDEN, "User is Blocked");
   }
 
   const result = await User.findByIdAndDelete(id);

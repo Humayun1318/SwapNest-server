@@ -14,8 +14,8 @@ const getAllUsers = catchAsync(async (req, res) => {
 });
 
 const getSingleUser = catchAsync(async (req, res) => {
-  const { userId } = req.params;
-  const result = await UserServices.getSingleUserFromDB(userId);
+  const { id } = req.params;
+  const result = await UserServices.getSingleUserFromDB(id);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,
@@ -25,9 +25,9 @@ const getSingleUser = catchAsync(async (req, res) => {
 });
 
 const updateUser = catchAsync(async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
   const userData = req.body;
-  const result = await UserServices.updateUserIntoDB(userId, userData);
+  const result = await UserServices.updateUserIntoDB(id, userData);
   sendResponse(res, {
     statusCode: status.OK,
     success: true,

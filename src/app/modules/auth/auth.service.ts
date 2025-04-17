@@ -14,22 +14,18 @@ const userRegisteredIntoDB = async (payload: TUser) => {
   if (payload.phone === null) delete payload.phone;
   if (payload.email === null) delete payload.email;
 
-  // Register the user (save user into DB)
   const user = await User.create(payload);
 
-  // Create the login payload
   const loginPayload = {
-    identifier: payload.email || payload.phone || "", // Ensure identifier is always a string
+    identifier: payload.email || payload.phone || "",
     password: payload.password,
   };
 
-  // Call the login service to get the authentication tokens
   const loginResult = await userLoginIntoDB(loginPayload);
 
-  // Return user and login tokens (access and refresh tokens)
   return {
     user,
-    loginResultUser: loginResult.user, // Renamed user to avoid overwriting
+    loginResultUser: loginResult.user,
     accessToken: loginResult.accessToken,
     refreshToken: loginResult.refreshToken,
   };
@@ -38,11 +34,9 @@ const userRegisteredIntoDB = async (payload: TUser) => {
 const userLoginIntoDB = async (payload: TLoginUser) => {
   const { identifier, password } = payload;
 
-  // Check if the input is an email or phone
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
   const queryKey = isEmail ? { email: identifier } : { phone: identifier };
 
-  // Find user by email or phone
   const user = await User.findOne(queryKey).select("+password");
 
   if (!user) {
@@ -92,7 +86,7 @@ const refreshToken = async (token: string) => {
       "Access denied. Your account has been Deactivate.",
     );
   }
-  console.log(user);
+
   const jwtPayload = {
     userId: user?.id,
     role: user?.role,

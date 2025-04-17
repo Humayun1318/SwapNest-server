@@ -6,36 +6,29 @@ import config from "../../config";
 
 const registerUser = catchAsync(async (req, res) => {
   const { identifier, password, ...rest } = req.body;
-
-  // Detect if it's email or phone
   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
-
-  // Prepare the user data, depending on whether the identifier is email or phone
   const userData = {
     ...rest,
     email: isEmail ? identifier : undefined,
     phone: !isEmail ? identifier : undefined,
-    password, // Make sure password is passed in the request
+    password,
   };
 
-  // Register the user in the database
+  // eslint-disable-next-line no-unused-vars
   const user = await AuthServices.userRegisteredIntoDB(userData);
 
-  // Perform auto-login using the newly registered user credentials
   const loginData = {
-    identifier, // The identifier can be either email or phone
-    password, // Ensure the password is passed in for the login
+    identifier,
+    password,
   };
 
   const loginResult = await AuthServices.userLoginIntoDB(loginData);
 
-  // Set the refresh token as a cookie in the response (optional for storing in browser)
   res.cookie("refreshToken", loginResult.refreshToken, {
-    secure: config.NODE_ENV === "production", // Set secure cookie in production
-    httpOnly: true, // To prevent access from JavaScript
+    secure: config.NODE_ENV === "production",
+    httpOnly: true,
   });
 
-  // Send the response with the access token
   sendResponse(res, {
     success: true,
     message: "User registered and logged in successfully",

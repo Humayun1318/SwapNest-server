@@ -26,7 +26,8 @@ const userValidationShcema = z.object({
       .min(1, "Password cannot be empty or only spaces")
       .refine((password) => !/^\s*$/.test(password), {
         message: "Password cannot contain only spaces",
-      }),
+      })
+      .optional(),
   }),
 });
 const updateUserValidationShcema = z.object({
@@ -39,13 +40,14 @@ const updateUserValidationShcema = z.object({
         message: "Name cannot contain only spaces",
       })
       .optional(),
-    email: z
-      .string({ required_error: "Email is required." })
-      .email("Invalid email address")
-      .optional(),
-    phone: z
-      .string()
-      .regex(/^\d{11}$/, "Phone number must be exactly 11 digits long")
+    identifier: z
+      .string({ required_error: "Email or phone is required!" })
+      .refine(
+        (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || /^\d{11}$/.test(val),
+        {
+          message: "Must be a valid email or phone number (11 digits)",
+        },
+      )
       .optional(),
     role: z
       .enum([UserRole.USER, UserRole.ADMIN])
@@ -57,7 +59,8 @@ const updateUserValidationShcema = z.object({
       .min(1, "Password cannot be empty or only spaces")
       .refine((password) => !/^\s*$/.test(password), {
         message: "Password cannot contain only spaces",
-      }),
+      })
+      .optional(),
   }),
 });
 

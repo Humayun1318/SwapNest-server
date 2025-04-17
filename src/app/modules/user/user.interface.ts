@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Model } from "mongoose";
 
 export enum UserRole {
@@ -6,6 +7,7 @@ export enum UserRole {
 }
 
 export type TUser = {
+  id: string;
   name: string;
   email?: string;
   phone?: string;
