@@ -93,6 +93,8 @@ class QueryBuilder<T> {
     return this;
   }
 
+  
+
   paginate() {
     const page = Number(this?.query?.page) || 1;
     const limit = Number(this?.query?.limit) || 10;
