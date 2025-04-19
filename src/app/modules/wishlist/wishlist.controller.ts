@@ -5,7 +5,7 @@ import sendResponse from "../../utils/sendResponse";
 import { WishlistServices } from "./wishlist.service";
 import { TUser } from "../user/user.interface"; // Add this import
 import AppError from "../../errors/AppError"; // Add this import
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from "jsonwebtoken";
 
 export interface IDecodedUser extends JwtPayload {
   userId: string;
@@ -14,13 +14,12 @@ export interface IDecodedUser extends JwtPayload {
 const addToWishlist = catchAsync(async (req, res) => {
   const user = req.user as IDecodedUser;
   if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, 'User not authenticated');
+    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
   }
-  
+
   const userForService: Partial<TUser> = {
     id: user.userId,
   };
-
 
   const wishlist = await WishlistServices.addToWishlist(req.body, userForService as TUser);
 
@@ -35,12 +34,11 @@ const addToWishlist = catchAsync(async (req, res) => {
 const getMyWishlist = catchAsync(async (req, res) => {
   const user = req.user as IDecodedUser;
   if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, 'User not authenticated');
+    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
   }
   const userForService: Partial<TUser> = {
     id: user.userId,
   };
-
 
   const result = await WishlistServices.getWishlist(userForService as TUser);
 
@@ -56,12 +54,11 @@ const deleteWishlist = catchAsync(async (req, res) => {
   const { id } = req.params;
   const user = req.user as IDecodedUser;
   if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, 'User not authenticated');
+    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
   }
   const userForService: Partial<TUser> = {
     id: user.userId,
   };
-
 
   const result = await WishlistServices.deleteWishlist(id, userForService as TUser);
 

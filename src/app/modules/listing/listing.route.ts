@@ -8,12 +8,12 @@ import { ListingValidations } from "./listing.validation";
 const router = express.Router();
 
 router.post(
-  "",
+  "/",
   auth("admin", "user"),
   validateRequest(ListingValidations.listingSchemaValidation),
   ListingController.createListing,
 );
-router.get("", ListingController.getAllAvailableListings);
+router.get("/", ListingController.getAllAvailableListings);
 router.get("/:id", auth("admin", "user"), ListingController.getSpecificAvailableListing);
 router.put(
   "/:id",

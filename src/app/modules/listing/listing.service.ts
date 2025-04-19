@@ -57,6 +57,9 @@ const updateAListingIntoDb = async (
       "The listing is already sold out. You can't update more!!",
     );
   }
+  if (isListingExist?.isDeleted) {
+    throw new AppError(status.FORBIDDEN, "The listing is not available");
+  }
   if (isListingExist?.userID.toString() !== userId) {
     throw new AppError(
       status.UNAUTHORIZED,
@@ -79,7 +82,7 @@ const updateAListingIntoDb = async (
 const deleteAListingIntoDb = async (
   listingId: string,
   userId: string | undefined,
-  role: "admin" | "user",
+  role: "admin" | "user" | undefined,
 ) => {
   const isListingExist = await Listing.findById(listingId);
 

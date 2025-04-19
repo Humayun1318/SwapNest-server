@@ -3,9 +3,9 @@ import { TUser } from "./user.interface";
 import { User } from "./user.model";
 import status from "http-status";
 const getAllUsersFromDB = async () => {
-  const result = await User.find();
+  const result = await User.find({ isDeleted: false });
   if (!result.length) {
-    throw new AppError(status.NOT_FOUND, "No users found,");
+    throw new AppError(status.NOT_FOUND, "No users found");
   }
   return result;
 };
@@ -41,12 +41,13 @@ const updateUserIntoDB = async (id: string, data: Partial<TUser>) => {
 };
 
 const deleteUserIntoDB = async (id: string) => {
-  const isUserExits = await User.findById(id);
-  if (!isUserExits) {
+  const isUserExists = await User.findById(id);
+  if (!isUserExists) {
     throw new AppError(status.NOT_FOUND, "User is not Found");
   }
 
-  const result = await User.findByIdAndDelete(id);
+  const result = await User.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+
   return result;
 };
 

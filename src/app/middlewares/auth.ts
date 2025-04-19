@@ -34,7 +34,7 @@ const auth = (...requiredRoles: string[]) => {
         if (requiredRoles.length > 0 && !requiredRoles.includes(payload.role)) {
           throw new AppError(
             status.FORBIDDEN,
-            "AAccess denied: You do not have the permission for this action",
+            "Access denied: You do not have the permission for this action",
           );
         }
 
