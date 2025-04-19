@@ -31,6 +31,11 @@ const userSchema = new Schema<TUser>(
       default: UserRole.USER,
       required: true,
     },
+    imgUrl: {
+      type: String,
+      required: true,
+      default: "N/A",
+    },
     isBlocked: {
       type: Boolean,
       default: false,
