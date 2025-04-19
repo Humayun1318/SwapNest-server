@@ -1,4 +1,4 @@
-import { FilterQuery, Query, Types } from "mongoose";
+import { FilterQuery, Query } from "mongoose";
 import {
   ListingCategory,
   ListingCondition,
@@ -92,8 +92,6 @@ class QueryBuilder<T> {
 
     return this;
   }
-
-  
 
   paginate() {
     const page = Number(this?.query?.page) || 1;

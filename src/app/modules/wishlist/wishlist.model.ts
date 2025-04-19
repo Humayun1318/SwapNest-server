@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
-import { model, Schema } from 'mongoose';
+import { model, Schema } from "mongoose";
 import { TWishlist } from "./wishlist.interface";
 
 const WishlistSchema = new Schema<TWishlist>(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     products: [
       {
         product: {
           type: Schema.Types.ObjectId,
-          ref: 'Listing',
+          ref: "Listing",
           required: true,
         },
       },
@@ -22,4 +22,4 @@ const WishlistSchema = new Schema<TWishlist>(
   { timestamps: true },
 );
 
-export const Wishlist = model<TWishlist>('Wishlist', WishlistSchema);
+export const Wishlist = model<TWishlist>("Wishlist", WishlistSchema);

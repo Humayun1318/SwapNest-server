@@ -7,6 +7,7 @@ export enum UserRole {
 }
 
 export type TUser = {
+  _id?: string;
   id: string;
   name: string;
   email?: string;
@@ -14,6 +15,7 @@ export type TUser = {
   password: string;
   role: UserRole;
   isBlocked: boolean;
+  isDeleted: boolean;
 };
 
 export interface UserModel extends Model<TUser> {
