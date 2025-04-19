@@ -17,6 +17,7 @@ const userValidationShcema = z.object({
       }),
 
     role: z.enum([UserRole.USER, UserRole.ADMIN]).default(UserRole.USER),
+    imgUrl: z.string().url("Invalid image URL").optional(),
     password: z
       .string({ required_error: "Password is required!" })
       .trim()
@@ -44,6 +45,7 @@ const updateUserValidationShcema = z.object({
       })
       .optional(),
     role: z.enum([UserRole.USER, UserRole.ADMIN]).default(UserRole.USER).optional(),
+    imgUrl: z.string().url("Invalid image URL").optional(),
     password: z
       .string({ required_error: "Password is required!" })
       .trim()

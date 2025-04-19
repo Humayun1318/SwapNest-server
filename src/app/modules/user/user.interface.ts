@@ -14,6 +14,7 @@ export type TUser = {
   phone?: string;
   password: string;
   role: UserRole;
+  imgUrl?: string;
   isBlocked: boolean;
   isDeleted: boolean;
 };
