@@ -109,7 +109,6 @@ npm run start:dev
 | GET    | `/api/v1/listings/:id`        | Get a listing by ID                  |
 | POST   | `/api/v1/listings`            | Add a new listing                    |
 | PATCH  | `/api/v1/listings/:id`        | Update a listing                     |
-| PATCH  | `/api/v1/listings/:id/status` | Update a listing status              |
 | DELETE | `/api/v1/listings/:id`        | Delete a listing                     |
 
 
