@@ -35,6 +35,7 @@ const registerUser = catchAsync(async (req, res) => {
     statusCode: status.CREATED,
     data: {
       accessToken: loginResult.accessToken,
+      refreshToken: loginResult.refreshToken,
     },
   });
 });
@@ -49,6 +50,7 @@ const loginUser = catchAsync(async (req, res) => {
 
   const data = {
     accessToken: accessToken,
+    refreshToken: refreshToken,
   };
   sendResponse(res, {
     success: true,
