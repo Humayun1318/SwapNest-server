@@ -56,7 +56,7 @@ const updateListing = catchAsync(async (req, res) => {
 const deleteListing = catchAsync(async (req, res) => {
   const { id: listingId } = req.params;
   const userId = req.user?.userId;
-  const role = req.user?.role;
+  const role = req.user?.role as "admin" | "user" | undefined;
   const result = await ListingServices.deleteAListingIntoDb(listingId, userId, role);
 
   sendResponse(res, {
