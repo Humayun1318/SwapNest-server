@@ -43,10 +43,11 @@ const registerUser = catchAsync(async (req, res) => {
 const loginUser = catchAsync(async (req, res) => {
   const result = await AuthServices.userLoginIntoDB(req.body);
   const { refreshToken, accessToken } = result;
-  res.cookie("refreshToken", refreshToken, {
-    secure: config.NODE_ENV === "production",
-    httpOnly: true,
-  });
+  // res.cookie("refreshToken", refreshToken, {
+  //   secure: config.NODE_ENV === "production",
+  //   httpOnly: true,
+  //   sameSite: "strict",
+  // });
 
   const data = {
     accessToken: accessToken,
@@ -61,8 +62,10 @@ const loginUser = catchAsync(async (req, res) => {
 });
 
 const refreshToken = catchAsync(async (req, res) => {
-  const { refreshToken } = req.cookies;
-  const result = await AuthServices.refreshToken(refreshToken);
+  const { authorization } = req.headers;
+
+  // const { refreshToken } = req.cookies;
+  const result = await AuthServices.refreshToken(authorization as string);
   sendResponse(res, {
     success: true,
     message: "Access token retrieved successfully!",
