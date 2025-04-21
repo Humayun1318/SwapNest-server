@@ -1,77 +1,66 @@
-/* eslint-disable prettier/prettier */
-import { StatusCodes } from "http-status-codes";
+import { Request, Response } from "express";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { WishlistServices } from "./wishlist.service";
-import { TUser } from "../user/user.interface"; // Add this import
-import AppError from "../../errors/AppError"; // Add this import
-import { JwtPayload } from "jsonwebtoken";
+import status from "http-status";
+import { WishlistService } from "./wishlist.service";
+import AppError from "../../errors/AppError";
+import { Types } from "mongoose";
 
-export interface IDecodedUser extends JwtPayload {
-  userId: string;
-  role: string;
-}
-const addToWishlist = catchAsync(async (req, res) => {
-  const user = req.user as IDecodedUser;
-  if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
+const addToWishlist = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const listingId = req.body.listing;
+
+  if (!userId) {
+    throw new AppError(status.UNAUTHORIZED, "Unauthorized user");
   }
-
-  const userForService: Partial<TUser> = {
-    id: user.userId,
-  };
-
-  const wishlist = await WishlistServices.addToWishlist(req.body, userForService as TUser);
-
-  sendResponse(res, {
-    statusCode: StatusCodes.CREATED,
-    success: true,
-    message: "Wishlist added successfully",
-    data: wishlist,
+  const result = await WishlistService.addToWishlistDB({
+    user: new Types.ObjectId(userId),
+    listing: listingId,
   });
-});
-
-const getMyWishlist = catchAsync(async (req, res) => {
-  const user = req.user as IDecodedUser;
-  if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
-  }
-  const userForService: Partial<TUser> = {
-    id: user.userId,
-  };
-
-  const result = await WishlistServices.getWishlist(userForService as TUser);
 
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: status.CREATED,
     success: true,
-    message: "Wishlist retrieved successfully", // Fixed typo
+    message: "Product added to wishlist",
     data: result,
   });
 });
 
-const deleteWishlist = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const user = req.user as IDecodedUser;
-  if (!user) {
-    throw new AppError(StatusCodes.UNAUTHORIZED, "User not authenticated");
+const getMyWishlist = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  if (!userId) {
+    throw new AppError(status.UNAUTHORIZED, "Unauthorized user");
   }
-  const userForService: Partial<TUser> = {
-    id: user.userId,
-  };
-
-  const result = await WishlistServices.deleteWishlist(id, userForService as TUser);
+  const result = await WishlistService.getUserWishlistDB(userId);
 
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: status.OK,
     success: true,
-    message: "Wishlist removed successfully",
+    message: "Wishlist retrieved successfully",
     data: result,
   });
 });
 
-export const WishlistControllers = {
+const removeFromWishlist = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+  const listingId = req.params.listingId;
+
+  if (!userId) {
+    throw new AppError(status.UNAUTHORIZED, "Unauthorized user");
+  }
+
+  const result = await WishlistService.removeFromWishlistDB(userId, listingId);
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: "Product removed from wishlist",
+    data: result,
+  });
+});
+
+export const WishlistController = {
   addToWishlist,
   getMyWishlist,
-  deleteWishlist,
+  removeFromWishlist,
 };
