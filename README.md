@@ -12,9 +12,6 @@
 - 📦 **Post, Update, and Manage Listings**  
   Users can add detailed listings with images, price, condition, and more.
 
-- 💬 **Buyer-Seller Messaging (Optional)**  
-  Seamless communication between buyers and sellers.
-
 - 🛍️ **Track Sales and Purchases**  
   View and manage your purchase and sales history.
 
@@ -25,7 +22,7 @@
   Find what you need with filtering by category, price, condition, and location.
 
 - 🧑‍💼 **Admin Panel (Optional)**  
-  Moderate listings, ban/unban users, and manage content.
+  Moderate listings and ban/unban users.
 
 ---
 
