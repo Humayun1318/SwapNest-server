@@ -20,8 +20,9 @@ const addToWishlistDB = async (data: TWishlistItem) => {
 const getUserWishlistDB = async (userId: string) => {
   const result = await Wishlist.find({ user: userId }).populate("listing");
   if (!result) {
-    throw new AppError(status.NOT_FOUND, "No Listing in Wishlist to show");
+    throw new AppError(status.NOT_FOUND, "Wishlist items not found");
   }
+
   return result;
 };
 
