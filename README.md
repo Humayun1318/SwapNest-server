@@ -39,7 +39,6 @@
 - **Cors** - Cross-origin resource sharing
 - **Dotenv** - Environment variable management
 
-
 ## Installation & Setup
 
 ### Prerequisites
@@ -72,8 +71,8 @@ DATABASE_URL=mongodb+srv://runtimenation:runtaimenation12345@cluster0.2cqx3gs.mo
 BCRYPT_SALT_ROUNDS=8
 JWT_ACCESS_SECRET=473d601c7348ebc5ac129f5a47c2a64b8020db26dbf0f2e6e81841f3f8af4f409638ddd03969fbe791bfa1c3d44934821ab32cb56beb852b988a391c039a0e97
 JWT_REFRESH_SECRET=016e6b54e7be2b04c423775746f85763aed383c0f9783a1b1b9d5924b6d029694ed782a0f28804838e7b1184056d796993e090de0cdaf44b09815c7ac4917f41
-JWT_ACCESS_SECRET_EXPIRES_IN=5h 
-JWT_REFRESH_SECRET_EXPIRES_IN=30d 
+JWT_ACCESS_SECRET_EXPIRES_IN=5h
+JWT_REFRESH_SECRET_EXPIRES_IN=30d
 ```
 
 4. Start the development server:
@@ -93,24 +92,23 @@ npm run start:dev
 
 ### Users
 
-| Method | Endpoint                   | Description                |
-| ------ | -------------------------- | -------------------------- |
-| GET    | `/api/v1/users`            | Get all users (Admin)      |
-| GET    | `/api/v1/users/:id`        | Get a user by ID           |
-| PATCH  | `/api/v1/users/:id`        | Update user information    |
-| PATCH  | `/api/v1/users/:id/ban`    | Update user status (Admin) |
-| DELETE | `/api/v1/users/:id`        | Delete Own ID              |
+| Method | Endpoint                | Description                |
+| ------ | ----------------------- | -------------------------- |
+| GET    | `/api/v1/users`         | Get all users (Admin)      |
+| GET    | `/api/v1/users/:id`     | Get a user by ID           |
+| PATCH  | `/api/v1/users/:id`     | Update user information    |
+| PATCH  | `/api/v1/users/:id/ban` | Update user status (Admin) |
+| DELETE | `/api/v1/users/:id`     | Delete Own ID              |
 
 ### Listings
 
-| Method | Endpoint                      | Description                          |
-| ------ | ----------------------------- | ------------------------------------ |
-| GET    | `/api/v1/listings`            | Get all products                     |
-| GET    | `/api/v1/listings/:id`        | Get a listing by ID                  |
-| POST   | `/api/v1/listings`            | Add a new listing                    |
-| PATCH  | `/api/v1/listings/:id`        | Update a listing                     |
-| DELETE | `/api/v1/listings/:id`        | Delete a listing                     |
-
+| Method | Endpoint               | Description         |
+| ------ | ---------------------- | ------------------- |
+| GET    | `/api/v1/listings`     | Get all products    |
+| GET    | `/api/v1/listings/:id` | Get a listing by ID |
+| POST   | `/api/v1/listings`     | Add a new listing   |
+| PATCH  | `/api/v1/listings/:id` | Update a listing    |
+| DELETE | `/api/v1/listings/:id` | Delete a listing    |
 
 ### Transactions
 
@@ -152,6 +150,5 @@ SwapNest-server/
 ├── tsconfig.json                                     # TypeScript Configuration
 └── vercel.json                                       # Vercel Deployment Configuration
 ```
-
 
 SwapNest is built with clean code principles, modular architecture, and scalable components to provide a modern, community-driven e-commerce experience focused on sustainability.

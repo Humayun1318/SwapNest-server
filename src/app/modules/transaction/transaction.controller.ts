@@ -34,32 +34,34 @@ const updateTransactionStatusByIdController = catchAsync(async (req, res) => {
 
 const getPurchasesHistoryBySpecificUserController = catchAsync(async (req, res) => {
   const userId = req.user?.userId;
-  const query = req.query;
 
-  const purchasesHistory = await TransactionServices.getPurchasesHistoryBySpecificUser(
-    userId!,
-    query,
-  );
+  const purchasesHistory = await TransactionServices.getPurchasesHistoryBySpecificUser(userId!);
 
+  const purchaseResult = {
+    result: purchasesHistory,
+  };
   sendResponse(res, {
     success: true,
     message: "Purchase history retrieved successfully",
     statusCode: 200,
-    data: purchasesHistory,
+    data: purchaseResult,
   });
 });
 
 const getSalesHistoryBySpecificUserController = catchAsync(async (req, res) => {
   const userId = req.user?.userId;
-  const query = req.query;
 
-  const salesHistory = await TransactionServices.getSalesHistoryBySpecificUser(userId!, query);
+  const salesHistory = await TransactionServices.getSalesHistoryBySpecificUser(userId!);
+
+  const saleResult = {
+    result: salesHistory,
+  };
 
   sendResponse(res, {
     success: true,
     message: "Sales history retrieved successfully",
     statusCode: 200,
-    data: salesHistory,
+    data: saleResult,
   });
 });
 
