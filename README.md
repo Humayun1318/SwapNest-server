@@ -64,7 +64,7 @@ npm install
 ```env
 NODE_ENV= development
 PORT=5000
-DATABASE_URL=mongodb+srv://runtimenation:runtaimenation12345@cluster0.2cqx3gs.mongodb.net/
+DATABASE_URL= <your-database-url>
 # DATABASE_URL=mongodb://localhost:27017/swapnest
 BCRYPT_SALT_ROUNDS=8
 JWT_ACCESS_SECRET=473d601c7348ebc5ac129f5a47c2a64b8020db26dbf0f2e6e81841f3f8af4f409638ddd03969fbe791bfa1c3d44934821ab32cb56beb852b988a391c039a0e97
@@ -85,14 +85,14 @@ npm run start:dev
 
 | Method | Endpoint                | Description         |
 | ------ | ----------------------- | ------------------- |
-| POST   | `/api/v1/auth/register` | Register a new user |
-| POST   | `/api/v1/auth/login`    | User login          |
+| POST   | `/api/auth/register` | Register a new user |
+| POST   | `/api/auth/login`    | User login          |
 
 ### Users
 
 | Method | Endpoint                   | Description                |
 | ------ | -------------------------- | -------------------------- |
-| GET    | `/api/v1/users`            | Get all users (Admin)      |
+| GET    | `/api/users`            | Get all users (Admin)      |
 | GET    | `/api/v1/users/:id`        | Get a user by ID           |
 | PATCH  | `/api/v1/users/:id`        | Update user information    |
 | PATCH  | `/api/v1/users/:id/ban`    | Update user status (Admin) |
@@ -102,21 +102,21 @@ npm run start:dev
 
 | Method | Endpoint                      | Description                          |
 | ------ | ----------------------------- | ------------------------------------ |
-| GET    | `/api/v1/listings`            | Get all products                     |
-| GET    | `/api/v1/listings/:id`        | Get a listing by ID                  |
-| POST   | `/api/v1/listings`            | Add a new listing                    |
-| PATCH  | `/api/v1/listings/:id`        | Update a listing                     |
-| DELETE | `/api/v1/listings/:id`        | Delete a listing                     |
+| GET    | `/api/listings`            | Get all products                     |
+| GET    | `/api/listings/:id`        | Get a listing by ID                  |
+| POST   | `/api/listings`            | Add a new listing                    |
+| PATCH  | `/api/listings/:id`        | Update a listing                     |
+| DELETE | `/api/listings/:id`        | Delete a listing                     |
 
 
 ### Transactions
 
 | Method | Endpoint                                 | Description                               |
 | ------ | ---------------------------------------- | ----------------------------------------- |
-| PATCH  | `/api/v1/transactions/:id`               | Update an transaction status ID           |
-| POST   | `/api/v1/transactions`                   | Create a new transaction                  |
-| GET    | `/api/v1/transactions/purchases/:userId` | Get all purchase history by specific user |
-| GET    | `/api/v1/transactions/sales/:userId`     | Get all sales history by specific user    |
+| PATCH  | `/api/transactions/:id`               | Update an transaction status ID           |
+| POST   | `/api/transactions`                   | Create a new transaction                  |
+| GET    | `/api/transactions/purchases/:userId` | Get all purchase history by specific user |
+| GET    | `/api/transactions/sales/:userId`     | Get all sales history by specific user    |
 
 ## Folder Structure
 
@@ -150,5 +150,10 @@ SwapNest-server/
 └── vercel.json                                       # Vercel Deployment Configuration
 ```
 
+Live Link: https://swap-nest-server-seven.vercel.app/ 
+
+Github Link: https://github.com/hossain-ahamed-khan/SwapNest-Client
+
+##
 
 SwapNest is built with clean code principles, modular architecture, and scalable components to provide a modern, community-driven e-commerce experience focused on sustainability.
