@@ -14,7 +14,7 @@ router.post(
   ListingController.createListing,
 );
 router.get("/", ListingController.getAllAvailableListings);
-router.get("/:id", auth("admin", "user"), ListingController.getSpecificAvailableListing);
+router.get("/:id", ListingController.getSpecificAvailableListing);
 router.put(
   "/:id",
   auth("admin", "user"),
